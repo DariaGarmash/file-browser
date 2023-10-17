@@ -1,46 +1,28 @@
-# Getting Started with Create React App
+## File Browser
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+SPA that represents file browser.
 
-## Available Scripts
+### User story 1 - View tree
 
-In the project directory, you can run:
+As a user I can see the files and folders rendered as a tree structure in the `sidebar`, where contents of the folder are **ordered alphabetically**.
 
-### `npm start`
+### User story 2 - Expand/collapse
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+As a user I can click once on a folder in the `sidebar` to expand/collapse it's contents. The same click will also make the folder active. Expanding/collapsing a folder should not result in previously expanded/collapsed folders to change state.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### User story 3 - Activating a file/folder in sidebar
 
-### `npm test`
+As a user I can click on a folder or file in the `sidebar` to make it active. Currently active file/folder should be displayed in the `main` area.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Active folder should display it's contents in the `main` area.
+- Active file should display it's name and type in the `main` area.
 
-### `npm run build`
+### User story 4 - Activating a file/folder in main area
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+As a user I can click on a file or folder in the `main` area to activate it. When activated, it should also expand the path to the folder in the `sidebar` tree.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## TECH notes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React + typescript
+- Redux - Redux toolkit
+- Jest

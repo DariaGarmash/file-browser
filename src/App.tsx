@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useEffect, useState } from "react";
+import Tree from "./components/Tree/Tree";
+import { TTreeNode } from "./types/types";
+import Viewer from "./components/View/Viewer";
+import { dataHandler } from "./utils/service/dataProvider";
+import { sortData } from "./utils/utils";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export const App: FC = () => {  
+  	const [data, setData] = useState<TTreeNode[]>([]);
+
+	useEffect(() => {
+		dataHandler.get<TTreeNode[]>('tree').then(data => setData(sortData(data)))
+	}, [])
+
+	return (
+		<>
+			<div className="header">
+				<h1>File Browser</h1>
+			</div>
+			<div className="app-wrapper">
+				<aside className="sidebar">
+					{data && <Tree data={data}/>}
+				</aside>
+				<main className="inner-wrapper">
+					<Viewer/>
+				</main>
+			</div>
+		</>
+	);
+};
 
 export default App;

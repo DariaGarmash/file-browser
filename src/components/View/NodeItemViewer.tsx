@@ -1,22 +1,18 @@
-import React, { FC, MouseEventHandler, MouseEvent } from "react";
+import React, { FC } from "react";
 import { TTreeNode } from "../../types/types";
 import NodeIcon from "../Icon";
-import { selectNode } from "../../store/slices/nodeSlice";
-import { useDispatch } from "react-redux";
+import { useNode } from "../../customHooks/useNode";
 
 type NodeItemViewerProps = {
-    node: TTreeNode,
+    node: TTreeNode
 };
 
 const NodeItemViewer: FC<NodeItemViewerProps> = ({node}) => {
-    const dispatch = useDispatch();
 
-    const handleClick: MouseEventHandler<HTMLDivElement> = (e: MouseEvent) => {
-        dispatch(selectNode(node))
-    };
+    const {onSelect} = useNode(node)
 
     return (
-        <article className={`node-viewer ${node.type}`} onClick={handleClick}>
+        <article className={`node-viewer ${node.type}`} onClick={onSelect}>
             <NodeIcon type={node.type} /> <span>{node.name}</span>
         </article>   
     );

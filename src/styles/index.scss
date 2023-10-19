@@ -8,6 +8,7 @@
 .header {
 	height: $header-height;
 	padding: spacing(2);
+	color: $black;
 
 	>* {
 		margin: 0;
@@ -27,7 +28,7 @@
 
 	.sidebar {
 		background: $grey-light;
-		flex: 0 0 300px;
+		flex: 0 0 400px;
 	}
 
 	.inner-wrapper {

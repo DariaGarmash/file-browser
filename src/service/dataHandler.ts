@@ -76,8 +76,6 @@ class DataHandler {
     public post = async <T>(url: string, body: T) => {
         return this.fetch<T>(url, {method: 'POST', body})
     }
-
-   
 }
 
 export const dataHandler = new DataHandler();

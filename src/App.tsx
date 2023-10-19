@@ -2,14 +2,20 @@ import React, { FC, useEffect, useState } from "react";
 import Tree from "./components/Tree/Tree";
 import { TTreeNode } from "./types/types";
 import Viewer from "./components/View/Viewer";
-import { dataHandler } from "./utils/service/dataProvider";
+import { dataHandler } from "./service/dataHandler";
 import { sortData } from "./utils/utils";
 
 export const App: FC = () => {  
-  	const [data, setData] = useState<TTreeNode[]>([]);
+  	const [data, setData] = useState<TTreeNode[] | null>(null);
+  	const [error, setError] = useState("");
 
 	useEffect(() => {
-		dataHandler.get<TTreeNode[]>('tree').then(data => setData(sortData(data)))
+		
+		dataHandler.get<TTreeNode[]>('tree')
+			.then(data => setData(sortData(data)))
+			.catch(e => {
+				setError(e.message)
+			})
 	}, [])
 
 	return (
@@ -19,9 +25,12 @@ export const App: FC = () => {
 			</header>
 			<section className="app-wrapper">
 				<aside className="sidebar">
-					<nav>
-						{data && <Tree data={data}/>}
-					</nav>
+					{error !== '' ? 
+						<p>{error}</p> :
+						<nav>
+							{data != null ? <Tree data={data}/> : <p>Loading...</p>}
+						</nav>
+					}
 				</aside>
 				<main className="inner-wrapper">
 					<Viewer/>

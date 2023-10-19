@@ -1,0 +1,35 @@
+.node-icon {
+    &.compact {
+        display: inline-flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0;
+        margin-right: 0.5em;
+    }
+
+    &:not(.compact) {
+        flex-direction: column;
+        align-items: center;
+
+        >svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: spacing(1);
+            margin-right: 0;
+        }
+    }
+
+    &.folder,
+    &.folderOpen {
+        color: $yellow;
+    }
+
+    &.image {
+        color: rgb(75, 197, 59);
+    }
+
+    &.doc {
+        color: rgb(226, 44, 47);
+    }
+}

@@ -1,0 +1,33 @@
+.list {
+    margin: 0;
+
+    &>& {
+        padding-left: 0;
+    }
+
+    .list-item {
+        padding: 0 0 0.35em 0.35em;
+        margin-bottom: 3px;
+
+        >.list-item-name {
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &.selected,
+    .selected {
+        position: relative;
+        border-bottom: 1px dashed $grey-dark;
+
+        &:before {
+            position: absolute;
+            color: inherit;
+            content: '*';
+            display: block;
+            left: spacing(-0.75);
+            top: 2px;
+        }
+    }
+}

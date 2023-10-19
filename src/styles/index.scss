@@ -1,0 +1,42 @@
+@import "_variables";
+@import "functions";
+@import "_common";
+@import "_list";
+@import "/src/styles/components/components.scss";
+
+
+.header {
+	height: $header-height;
+	padding: spacing(2);
+
+	>* {
+		margin: 0;
+	}
+}
+
+.app-wrapper {
+	display: flex;
+	border: 1px solid $grey-light;
+
+	.sidebar,
+	.inner-wrapper {
+		overflow: auto;
+		height: calc(100vh - #{$header-height});
+		padding: spacing(2);
+	}
+
+	.sidebar {
+		background: $grey-light;
+		flex: 0 0 300px;
+	}
+
+	.inner-wrapper {
+		max-width: 100%;
+		display: flex;
+		flex-flow: row wrap;
+		align-content: flex-start;
+		flex-basis: 100%;
+	}
+
+
+}

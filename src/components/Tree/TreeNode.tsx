@@ -10,7 +10,6 @@ type TreeNodeProps = {
 }
 
 const TreeNode: FC<TreeNodeProps> = ({node}) => {
-
     const {hasChildren, selected, onSelect} = useNode(node);
     const iconType = node.type === 'folder' ?  `folder${selected ? 'Open' : ""}` : node.type
 

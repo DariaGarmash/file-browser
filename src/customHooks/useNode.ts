@@ -15,7 +15,6 @@ export const useNode = (node: TTreeNode) => {
     
     const onSelect = (e: MouseEvent) => {
         e.stopPropagation();
-        console.log('onSelect node', node?.name, 'selected', selected)
         dispatch(selectNode(node));
     };
 

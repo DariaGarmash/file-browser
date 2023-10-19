@@ -1,40 +1,40 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, MouseEvent, useEffect } from "react";
 import { TTreeNode } from "../../types/types";
 import Tree from "./Tree";
-import {useDispatch, useSelector} from 'react-redux';
-import { TStore } from "../../store/store";
-import { selectNode } from "../../store/slices/nodeSlice";
 import NodeIcon from "../Icon";
 import classNames from "classnames";
+import { useNode } from "../../customHooks/useNode";
 
 type TreeNodeProps = {
     node: TTreeNode;
 }
 
 const TreeNode: FC<TreeNodeProps> = ({node}) => {
-    const selectedNode = useSelector<TStore, TTreeNode>((state: TStore) => state.node.selected);
-    const dispatch = useDispatch();
 
-    const [showChildren, setShowChildren] = useState(false)
-   
-    const {id, type, name, children} = node;
-    const hasChildren = children && children.length > 0
+    const {hasChildren, selected, onSelect} = useNode(node);
+    const iconType = node.type === 'folder' ?  `folder${selected ? 'Open' : ""}` : node.type
 
-    const selected = selectedNode.id === id
-    const iconType = type === 'folder' ?  `folder${selected ? 'Open' : ""}` : type
+    const [showChildren, setShowChildren] = useState(selected);
 
-    const handleClick = () => {
-        setShowChildren(!showChildren);
-        dispatch(selectNode(node)) 
-    };
+    const clickHandler = (e: MouseEvent) => {
+        e.stopPropagation();
+        setShowChildren(!showChildren)
+        onSelect(e)
+    }
+
+    useEffect(() => {
+        if(selected){
+            setShowChildren(true)
+        }
+    }, [selected])
 
     return (
-        <li className={classNames(`list-item`, {selected})}>
-            <span onClick={handleClick} className="list-item-name">
+        <li className="list-item">
+            <span onClick={clickHandler}  className={classNames(`list-item-name`, {selected})}>
                 <NodeIcon type={iconType} compact/>
-                <span>{name}</span>
+                <span>{node.name}</span>
             </span>
-            {hasChildren && showChildren && <Tree data={children} /> }      
+            {hasChildren && showChildren && node.children && <Tree data={node.children} /> }      
         </li>
     );
 }

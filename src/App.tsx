@@ -14,17 +14,19 @@ export const App: FC = () => {
 
 	return (
 		<>
-			<div className="header">
+			<header className="header">
 				<h1>File Browser</h1>
-			</div>
-			<div className="app-wrapper">
+			</header>
+			<section className="app-wrapper">
 				<aside className="sidebar">
-					{data && <Tree data={data}/>}
+					<nav>
+						{data && <Tree data={data}/>}
+					</nav>
 				</aside>
 				<main className="inner-wrapper">
 					<Viewer/>
 				</main>
-			</div>
+			</section>
 		</>
 	);
 };

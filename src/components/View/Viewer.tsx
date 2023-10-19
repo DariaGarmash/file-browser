@@ -10,12 +10,12 @@ const NodeViewer: FC = () => {
     const hasChildren = selectedNode.children != null && selectedNode.children.length > 0;
 
     return (
-        <>
+        <section>
             {!hasChildren && <NodeItemViewer node={selectedNode} />}
             {hasChildren && selectedNode?.children?.map((node: TTreeNode) => (
                 <NodeItemViewer node={node} key={node.id} />
             ))}
-        </>   
+        </section>   
     );
 }
 

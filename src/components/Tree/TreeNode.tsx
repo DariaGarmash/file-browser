@@ -3,8 +3,9 @@ import { TTreeNode } from "../../types/types";
 import Tree from "./Tree";
 import {useDispatch, useSelector} from 'react-redux';
 import { TStore } from "../../store/store";
-import { selected } from "../../store/slices/nodeSlice";
+import { selectNode } from "../../store/slices/nodeSlice";
 import NodeIcon from "../Icon";
+import classNames from "classnames";
 
 type TreeNodeProps = {
     node: TTreeNode;
@@ -19,24 +20,21 @@ const TreeNode: FC<TreeNodeProps> = ({node}) => {
     const {id, type, name, children} = node;
     const hasChildren = children && children.length > 0
 
-    const isSelected = selectedNode.id === id
-    const iconType = type === 'folder' ?  `folder${isSelected ? 'Open' : ""}` : type
+    const selected = selectedNode.id === id
+    const iconType = type === 'folder' ?  `folder${selected ? 'Open' : ""}` : type
 
     const handleClick = () => {
         setShowChildren(!showChildren);
-        dispatch(selected(node)) 
+        dispatch(selectNode(node)) 
     };
 
     return (
-        <li className={`list-item ${isSelected ? "selected" : ''}`}>
+        <li className={classNames(`list-item`, {selected})}>
             <span onClick={handleClick} className="list-item-name">
-                <NodeIcon type={iconType} />
+                <NodeIcon type={iconType} compact/>
                 <span>{name}</span>
             </span>
-            {hasChildren && showChildren &&  
-                <ul className="list">
-                    {<Tree data={children} />}
-                </ul>}
+            {hasChildren && showChildren && <Tree data={children} /> }      
         </li>
     );
 }

@@ -13,7 +13,7 @@ const getFolderElement = () => screen.getByText(treeNode.name)
 
 afterAll(cleanup)
 
-describe("App Component", () => {
+describe("TreeNode Component", () => {
 
 	it("renders TreeNode in the initial state", async () => {
 		const treeNode = mockedGetTree[0];

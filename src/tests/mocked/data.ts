@@ -13,7 +13,7 @@ export const mockedGetTree: TTreeNode[] = [
             },
             { 
                 id: "4", 
-                name: "Image 1-1", 
+                name: "Image 1-2", 
                 type: "doc"
             },
             { 

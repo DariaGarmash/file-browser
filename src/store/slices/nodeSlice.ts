@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { TTreeNode } from "../../types/types";
-import { sortData } from "../../utils/utils";
 
 export type TStoreNodeSlice = {
     selected: TTreeNode,

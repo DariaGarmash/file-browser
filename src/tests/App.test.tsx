@@ -1,20 +1,28 @@
-import { render, waitFor, screen } from "@testing-library/react";
+import React from "react";
+import { render, waitFor, screen, cleanup } from "@testing-library/react";
 import { mockedGetTree } from "./mocked/data";
 import { dataHandler } from '../service/dataHandler';
 import { TTreeNode } from "../types/types";
-import { renderApp } from "./helper";
+import { Provider } from "react-redux";
+import store from "../store/store";
+import App from "../components/App";
+
+const renderApp = () => {
+    return <Provider store={store}><App/></Provider>;
+}
 
 // Mock the dataHandler service
 jest.mock('../service/dataHandler');
 
+beforeAll(() => {
+	jest.clearAllMocks();
+})
+afterAll(cleanup)
+
 describe("App Component", () => {
 
-	const jestInstance = (dataHandler.get as jest.Mock<Promise<TTreeNode[]>>)
+	const jestInstance: jest.Mock<Promise<TTreeNode[]>> = (dataHandler.get as unknown as jest.Mock<Promise<TTreeNode[]>>);
 
-	beforeAll(() => {
-		jestInstance.mockClear();
-	})
-  
 	it("renders App component correctly", async () => {
 		jestInstance.mockResolvedValueOnce(mockedGetTree);
 
@@ -22,7 +30,7 @@ describe("App Component", () => {
 		expect(screen.getByText("Loading...")).not.toBeNull();
 	
 		await waitFor(() => {
-			expect(dataHandler.get).toHaveBeenCalledTimes(1);
+			expect(jestInstance.mock.calls).toHaveLength(1);
 			expect(dataHandler.get).toHaveBeenCalledWith("tree");
 			expect(screen.getByText("File Browser")).not.toBeNull();
 			expect(screen.getByText("Folder 1")).not.toBeNull();

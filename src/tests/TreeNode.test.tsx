@@ -16,7 +16,6 @@ afterAll(cleanup)
 describe("TreeNode Component", () => {
 
 	it("renders TreeNode in the initial state", async () => {
-		const treeNode = mockedGetTree[0];
 		const {container} = render(treeNodeComponent);
 	
 		await waitFor(() => {
@@ -49,8 +48,8 @@ describe("TreeNode Component", () => {
 			expect(children).toBeTruthy();
 			expect(children.length).toBe(4);
 			expect(screen.getByText(treeNode.name)).not.toBeNull();
-			expect(screen.getByText('Image 1-1')).not.toBeNull();
-			expect(screen.getByText('Image 1-2')).not.toBeNull();
+			expect(screen.getByText('Image 1')).not.toBeNull();
+			expect(screen.getByText('Doc 1')).not.toBeNull();
 			expect(screen.getByText('Folder 1-1')).not.toBeNull();
 		})
 

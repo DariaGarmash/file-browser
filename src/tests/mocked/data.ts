@@ -8,12 +8,12 @@ export const mockedGetTree: TTreeNode[] = [
         children: [
             { 
                 id: "3", 
-                name: "Image 1-1", 
+                name: "Image 1", 
                 type: "image"
             },
             { 
                 id: "4", 
-                name: "Image 1-2", 
+                name: "Doc 1", 
                 type: "doc"
             },
             { 

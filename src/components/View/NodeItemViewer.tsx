@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { TTreeNode } from "../../types/types";
-import NodeIcon from "../Icon";
+import NodeIcon from "../NodeIcon";
 import { useNode } from "../../customHooks/useNode";
 
 type NodeItemViewerProps = {

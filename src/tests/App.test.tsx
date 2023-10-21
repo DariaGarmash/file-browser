@@ -1,11 +1,8 @@
-import React from "react";
-import { render, waitFor, screen, act } from "@testing-library/react";
-import App from "../App";
-import { Provider } from "react-redux";
-import store from "../store/store";
+import { render, waitFor, screen } from "@testing-library/react";
 import { mockedGetTree } from "./mocked/data";
 import { dataHandler } from '../service/dataHandler';
 import { TTreeNode } from "../types/types";
+import { renderApp } from "./helper";
 
 // Mock the dataHandler service
 jest.mock('../service/dataHandler');
@@ -21,17 +18,14 @@ describe("App Component", () => {
 	it("renders App component correctly", async () => {
 		jestInstance.mockResolvedValueOnce(mockedGetTree);
 
-		const {getByText} = render(
-			<Provider store={store}>
-				<App />
-			</Provider>
-		);
+		render(renderApp());
 		expect(screen.getByText("Loading...")).not.toBeNull();
 	
 		await waitFor(() => {
+			expect(dataHandler.get).toHaveBeenCalledTimes(1);
 			expect(dataHandler.get).toHaveBeenCalledWith("tree");
-			expect(getByText("File Browser")).not.toBeNull();
-			expect(getByText("Folder 1")).not.toBeNull();
+			expect(screen.getByText("File Browser")).not.toBeNull();
+			expect(screen.getByText("Folder 1")).not.toBeNull();
 		});
 	});
 
@@ -39,12 +33,13 @@ describe("App Component", () => {
 		const error = "API Error"
 		jestInstance.mockRejectedValueOnce(new Error(error));
 
-		const { getByText } = render(<Provider store={store}><App/> </Provider>);
-		//expect(getByText("Loading...")).not.toBeNull();
+		render(renderApp());
+		expect(screen.getByText("Loading...")).not.toBeNull();
 
 		await waitFor(() => {
+			expect(dataHandler.get).toHaveBeenCalledTimes(1);
 			expect(dataHandler.get).toHaveBeenCalledWith("tree");
-			expect(getByText(error)).not.toBeNull();
+			expect(screen.getByText(error)).not.toBeNull();
 		});
 	});
 });

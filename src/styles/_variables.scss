@@ -3,10 +3,11 @@ $white: #ffffff;
 $black: #545454;
 $grey-light: #f6f6f6;
 $grey-dark: darken($grey-light, 10);
+$grey-deep-dark: darken($grey-dark, 10);
 $yellow: #eccb0b;
 $green: rgb(75, 197, 59)#eccb0b;
 $blue: rgb(44, 123, 226);
 
 // Measurements
-$header-height: 5em;
-$default-space: 0.5em;
+$header-height: 5rem;
+$default-space: 0.5rem;

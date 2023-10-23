@@ -1,6 +1,7 @@
 @import "_variables";
 @import "functions";
 @import "_common";
+@import "_scrollbar";
 @import "_list";
 @import "/src/styles/components/components.scss";
 
@@ -37,6 +38,11 @@
 		flex-flow: row wrap;
 		align-content: flex-start;
 		flex-basis: 100%;
+	}
+
+	.error {
+		text-align: center;
+		padding: spacing(1) spacing(1);
 	}
 
 

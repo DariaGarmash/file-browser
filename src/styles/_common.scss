@@ -12,6 +12,7 @@ body {
     height: 100vh;
     overflow: hidden;
     color: $black;
+    font-size: 16px;
 }
 
 code {
@@ -21,11 +22,11 @@ code {
 
 ul {
     list-style: none;
-    padding-left: 1em;
+    padding-left: spacing(2);
 }
 
 .container {
-    padding: 1em 2em;
+    padding: spacing(1) spacing(2);
     display: flex;
 }
 
@@ -34,7 +35,7 @@ button {
         white-space: nowrap;
         display: flex;
         align-items: center;
-        padding: 0.2em 0.3em;
+        padding: 0.2rem 0.3rem;
         margin-bottom: 3px;
         color: inherit;
         background: none;

@@ -19,6 +19,10 @@ export const App: FC = () => {
 		}
 	}, [data])
 
+	if(error !== ''){
+		return <section className="error"><p>{error}</p></section>
+	}
+
 	return (
 		<>
 			<header className="header">
@@ -26,12 +30,9 @@ export const App: FC = () => {
 			</header>
 			<section className="app-wrapper">
 				<aside className="sidebar">
-					{error !== '' ? 
-						<p>{error}</p> :
-						<nav>
-							{data != null ? <Tree data={data}/> : <p>Loading...</p>}
-						</nav>
-					}
+					<nav>
+						{data != null ? <Tree data={data}/> : <p>Loading...</p>}
+					</nav>
 				</aside>
 				<main className="inner-wrapper">
 					<Viewer/>

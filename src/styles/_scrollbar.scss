@@ -1,0 +1,12 @@
+::-webkit-scrollbar {
+    width: spacing(1);
+}
+
+::-webkit-scrollbar-thumb {
+    background: $grey-dark;
+    border-radius: spacing(1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: $grey-deep-dark;
+}

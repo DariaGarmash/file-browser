@@ -19,9 +19,17 @@ export const App: FC = () => {
 		}
 	}, [data])
 
-	if(error !== ''){
-		return <section className="error"><p>{error}</p></section>
-	}
+	const errorNode = <section className="error"><p>{error}</p></section>
+	const browserNode = <>
+		<aside className="sidebar">
+			<nav>
+				{data != null ? <Tree data={data}/> : <p>Loading...</p>}
+			</nav>
+		</aside>
+		<main className="inner-wrapper">
+			<Viewer/>
+		</main>
+	</>
 
 	return (
 		<>
@@ -29,14 +37,7 @@ export const App: FC = () => {
 				<h1>File Browser</h1>
 			</header>
 			<section className="app-wrapper">
-				<aside className="sidebar">
-					<nav>
-						{data != null ? <Tree data={data}/> : <p>Loading...</p>}
-					</nav>
-				</aside>
-				<main className="inner-wrapper">
-					<Viewer/>
-				</main>
+				{error !== '' ? errorNode : browserNode}
 			</section>
 		</>
 	);

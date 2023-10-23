@@ -43,7 +43,8 @@
 	.error {
 		text-align: center;
 		padding: spacing(1) spacing(1);
+		background: $warning;
+		color: $white;
+		flex-basis: 100%;
 	}
-
-
 }

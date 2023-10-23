@@ -6,4 +6,8 @@
     margin-bottom: spacing(2);
     flex-basis: 100px;
     text-align: center;
+
+    &:hover {
+        cursor: pointer;
+    }
 }

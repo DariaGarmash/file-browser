@@ -1,22 +1,18 @@
 import React from "react";
-import { render, waitFor, screen, cleanup, fireEvent } from "@testing-library/react";
-import { mockedGetTree } from "./mocked/data";
-import { Provider } from "react-redux";
-import store from "../store/store";
-import TreeNode from "../components/Tree/TreeNode";
+import { waitFor, screen, fireEvent } from "@testing-library/react";
+import { mockedGetTree } from "../mocked/data";
+import TreeNode from "../../components/Tree/TreeNode";
+import { renderWithStore } from "../wrapper";
 
 const treeNode = mockedGetTree[0];
-const treeNodeComponent = <Provider store={store}><TreeNode node={treeNode}/></Provider>
 
-const getChildren =(node: Element) => node.getElementsByClassName('list-item-name')
+const getChildren = (node: Element) => node.getElementsByClassName('list-item-name')
 const getFolderElement = () => screen.getByText(treeNode.name)
-
-afterAll(cleanup)
 
 describe("TreeNode Component", () => {
 
 	it("renders TreeNode in the initial state", async () => {
-		const {container} = render(treeNodeComponent);
+		const {container} = renderWithStore(<TreeNode node={treeNode}/>);
 	
 		await waitFor(() => {
 			const items = getChildren(container);
@@ -29,7 +25,7 @@ describe("TreeNode Component", () => {
 	});
 
 	it("renders TreeNode type folder with children collapsed/expanded by click", async () => {	
-		const {container} = render(treeNodeComponent)
+		const {container} = renderWithStore(<TreeNode node={treeNode}/>);
 
 		await waitFor(async () => {
 			const folder = getChildren(container);
@@ -48,9 +44,9 @@ describe("TreeNode Component", () => {
 			expect(children).toBeTruthy();
 			expect(children.length).toBe(4);
 			expect(screen.getByText(treeNode.name)).not.toBeNull();
-			expect(screen.getByText('Image 1')).not.toBeNull();
-			expect(screen.getByText('Doc 1')).not.toBeNull();
-			expect(screen.getByText('Folder 1-1')).not.toBeNull();
+			expect(screen.getByText(/image 1/i)).not.toBeNull();
+			expect(screen.getByText(/doc 1/i)).not.toBeNull();
+			expect(screen.getByText(/folder 1-1/i)).not.toBeNull();
 		})
 
 		// collapse

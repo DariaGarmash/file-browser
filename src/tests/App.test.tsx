@@ -1,48 +1,45 @@
 import React from "react";
-import { render, waitFor, screen, cleanup } from "@testing-library/react";
+import { waitFor, screen } from "@testing-library/react";
 import { mockedGetTree } from "./mocked/data";
 import { dataHandler } from '../service/dataHandler';
 import { TTreeNode } from "../types/types";
-import { Provider } from "react-redux";
-import store from "../store/store";
 import App from "../components/App";
-
-const renderApp = () => {
-    return <Provider store={store}><App/></Provider>;
-}
+import { renderWithStore } from "./wrapper";
 
 // Mock the dataHandler service
 jest.mock('../service/dataHandler');
 
-beforeAll(() => {
+beforeEach(() => {
 	jest.clearAllMocks();
 })
-afterAll(cleanup)
+
+const loadingText = /loading.../i
 
 describe("App Component", () => {
 
-	const jestInstance: jest.Mock<Promise<TTreeNode[]>> = (dataHandler.get as unknown as jest.Mock<Promise<TTreeNode[]>>);
+	const jestInstance: jest.Mock<Promise<TTreeNode[]>> = dataHandler.get as jest.Mock<Promise<TTreeNode[]>>;
 
 	it("renders App component correctly", async () => {
 		jestInstance.mockResolvedValueOnce(mockedGetTree);
 
-		render(renderApp());
-		expect(screen.getByText("Loading...")).not.toBeNull();
+		renderWithStore(<App/>);
+		expect(screen.getByText(loadingText)).not.toBeNull();
 	
 		await waitFor(() => {
 			expect(jestInstance.mock.calls).toHaveLength(1);
 			expect(dataHandler.get).toHaveBeenCalledWith("tree");
-			expect(screen.getByText("File Browser")).not.toBeNull();
-			expect(screen.getByText("Folder 1")).not.toBeNull();
+			expect(screen.getByText(/file browser/i)).not.toBeNull();
+			expect(screen.getByText(/folder 1/i)).not.toBeNull();
 		});
+		
 	});
 
 	it("renders error message when API call fails", async () => {
 		const error = "API Error"
 		jestInstance.mockRejectedValueOnce(new Error(error));
 
-		render(renderApp());
-		expect(screen.getByText("Loading...")).not.toBeNull();
+		renderWithStore(<App/>);
+		expect(screen.getByText(loadingText)).not.toBeNull();
 
 		await waitFor(() => {
 			expect(dataHandler.get).toHaveBeenCalledTimes(1);

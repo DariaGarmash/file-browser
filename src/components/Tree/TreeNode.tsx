@@ -29,10 +29,10 @@ const TreeNode: FC<TreeNodeProps> = ({node}) => {
 
     return (
         <li className="list-item">
-            <span onClick={clickHandler}  className={classNames(`list-item-name`, {selected})}>
+            <button onClick={clickHandler} className={classNames(`list-item-name is-link`, {selected})}>
                 <NodeIcon type={iconType} compact/>
                 <span>{node.name}</span>
-            </span>
+            </button>
             {hasChildren && showChildren && node.children && <Tree data={node.children} /> }      
         </li>
     );

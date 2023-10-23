@@ -10,13 +10,14 @@ export const App: FC = () => {
   	const [error, setError] = useState("");
 
 	useEffect(() => {
-		
-		dataHandler.get<TTreeNode[]>('tree')
-			.then(data => setData(sortData(data)))
-			.catch(e => {
-				setError(e.message)
-			})
-	}, [])
+		if(data == null){
+			dataHandler.get<TTreeNode[]>('tree')
+				.then(data => setData(sortData(data)))
+				.catch(e => {
+					setError(e.message)
+				})
+		}
+	}, [data])
 
 	return (
 		<>

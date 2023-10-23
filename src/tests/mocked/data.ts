@@ -25,7 +25,29 @@ export const mockedGetTree: TTreeNode[] = [
     },
     { 
         id: "6", 
-        name: "Image 1", 
+        name: "Image 2", 
         type: "image"
-    }
+    },
+    { 
+        id: "7", 
+        name: "Folder 2", 
+        type: "folder", 
+        children: [
+            { 
+                id: "8", 
+                name: "Image 2-1", 
+                type: "image"
+            },
+            { 
+                id: "9", 
+                name: "Doc 2-1", 
+                type: "doc"
+            },
+            { 
+                id: "10", 
+                name: "Folder nested", 
+                type: "folder"
+            }
+        ]
+    },
 ]

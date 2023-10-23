@@ -1,11 +1,9 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import { Provider } from "react-redux";
-import store from "../store/store";
 import NodeIcon, { NodeIconProps } from "../components/NodeIcon";
+import { renderWithStore } from "./wrapper";
 
 const getNodeIconElement = (args: NodeIconProps): Element => {
-	const {container, debug} = render(<Provider store={store}><NodeIcon {...args}/></Provider>)
+	const {container} = renderWithStore(<NodeIcon {...args}/>)
 	return container.getElementsByClassName('node-icon')[0]
 }
 

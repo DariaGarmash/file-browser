@@ -1,4 +1,4 @@
-type TTreeNodeType = "folder" | "doc" | "image";
+export type TTreeNodeType = "folder" | "doc" | "image";
 
 export type TTreeNode = {
     id: string;

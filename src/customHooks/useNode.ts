@@ -1,20 +1,19 @@
 import { MouseEvent } from 'react';
 import { TTreeNode } from '../types/types';
-import { selectNode } from '../store/slices/nodeSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { TStore } from '../store/store';
+import { selectNode, selectedNode } from '../store/slices/nodeSlice';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 export const useNode = (node: TTreeNode) => {
-    const dispatch = useDispatch();
-    const selectedNode = useSelector<TStore, TTreeNode>((state: TStore) => state.node.selected);
+    const dispatch = useAppDispatch();
+    const currentSelectedNode = useAppSelector(selectedNode);
 
-    const selected = selectedNode.id === node.id
+    const selected = currentSelectedNode.id === node.id
 
     const isFolder = node.type === 'folder';
     const hasChildren = isFolder && node.children != null && node.children.length > 0;
     
     const onSelect = (e: MouseEvent) => {
-        e.stopPropagation();
+        e.preventDefault();
         dispatch(selectNode(node));
     };
 

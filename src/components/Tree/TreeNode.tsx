@@ -1,7 +1,7 @@
 import React, { FC, useState, MouseEvent, useEffect } from "react";
 import { TTreeNode } from "../../types/types";
 import Tree from "./Tree";
-import NodeIcon from "../Icon";
+import NodeIcon, { TNodeIconKey } from "../NodeIcon";
 import classNames from "classnames";
 import { useNode } from "../../customHooks/useNode";
 
@@ -11,7 +11,7 @@ type TreeNodeProps = {
 
 const TreeNode: FC<TreeNodeProps> = ({node}) => {
     const {hasChildren, selected, onSelect} = useNode(node);
-    const iconType = node.type === 'folder' ?  `folder${selected ? 'Open' : ""}` : node.type
+    const iconType: TNodeIconKey = node.type === 'folder' ?  `folder${selected ? 'Open' : ""}` : node.type
 
     const [showChildren, setShowChildren] = useState(selected);
 
@@ -29,10 +29,10 @@ const TreeNode: FC<TreeNodeProps> = ({node}) => {
 
     return (
         <li className="list-item">
-            <span onClick={clickHandler}  className={classNames(`list-item-name`, {selected})}>
+            <button onClick={clickHandler} className={classNames(`list-item-name is-link`, {selected})}>
                 <NodeIcon type={iconType} compact/>
                 <span>{node.name}</span>
-            </span>
+            </button>
             {hasChildren && showChildren && node.children && <Tree data={node.children} /> }      
         </li>
     );

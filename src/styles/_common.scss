@@ -28,3 +28,21 @@ ul {
     padding: 1em 2em;
     display: flex;
 }
+
+button {
+    &.is-link {
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        padding: 0.2em 0.3em;
+        margin-bottom: 3px;
+        color: inherit;
+        background: none;
+        border: none;
+        width: 100%;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

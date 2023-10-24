@@ -2,24 +2,25 @@ import React, { FC } from "react";
 import { TTreeNode } from "../../types/types";
 import NodeItemViewer from "./NodeItemViewer";
 import { useNode } from "../../customHooks/useNode";
-import { useSelector } from "react-redux";
 import { TStore } from "../../store/store";
+import { useAppSelector } from "../../store/hooks";
+import { selectedNode } from "../../store/slices/nodeSlice";
 
 
-const NodeViewer: FC = () => {
-    const selectedNode = useSelector<TStore, TTreeNode>((state: TStore) => state.node.selected);
-    const {isFolder, hasChildren} = useNode(selectedNode)
+const Viewer: FC = () => {
+    const currentSelectedNode = useAppSelector(selectedNode);
+    const {isFolder, hasChildren} = useNode(currentSelectedNode)
 
     return (
-        selectedNode.id === '' ? 
+        currentSelectedNode.id === '' ? 
         <></> :
         <>
-            {!isFolder && <NodeItemViewer node={selectedNode}/>}
-            {hasChildren && selectedNode?.children?.map((node: TTreeNode) => (
+            {!isFolder && <NodeItemViewer node={currentSelectedNode}/>}
+            {hasChildren && currentSelectedNode?.children?.map((node: TTreeNode) => (
                 <NodeItemViewer node={node} key={node.id}/>
             ))}
         </>   
     );
 }
 
-export default NodeViewer;
+export default Viewer;
